@@ -34,27 +34,10 @@ fit_voxels(path_of_script,simulated_SNRs,voxel_folder,L)
 
 results = read_fit_results_and_compute_a_mpe_and_a_std(path_of_script,voxel_folder,simulated_SNRs,number_of_noise_realizations,slice,results);
 
-create_plot_data(results,simulated_SNRs)
+[bias_threshold, std_threshold] = create_plot_data(results,simulated_SNRs);
 
 
 
 
-% 
-%  [Bias_values_full_no_rice_synth,  Bias_values_full_rice_synth  , Bias_values_ax_sym_rice_synth  ,Bias_values_ax_sym_no_rice_synth, Bias_values_full_no_rice_std_synth, Bias_values_full_rice_std_synth, Bias_values_ax_sym_no_rice_std_synth, Bias_values_ax_sym_rice_std_synth] = simulate_synthetic_voxels(n_datapoints,path_of_script);
-% 
-%  [Bias_values_full_no_rice_gm,  Bias_values_full_rice_gm  , Bias_values_ax_sym_rice_gm  ,Bias_values_ax_sym_no_rice_gm,Bias_values_full_no_rice_std_gm,Bias_values_full_rice_std_gm,Bias_values_ax_sym_no_rice_std_gm,Bias_values_ax_sym_rice_std_gm, AxTM] = simulate_in_vivo_like_voxels_gm(n_datapoints,path_of_script,tissue_sample_gm);
-% 
-% [Bias_values_full_no_rice,  Bias_values_full_rice  , Bias_values_ax_sym_rice  ,Bias_values_ax_sym_no_rice,Bias_values_full_no_rice_std,Bias_values_full_rice_std,Bias_values_ax_sym_no_rice_std,Bias_values_ax_sym_rice_std,  AxTM] = evaluate_in_vivo_like_voxels(n_datapoints,path_of_script,tissue_sample);
-% 
-%  
-% 
-% 
-% dummy_gm = 0;
-% create_figures(Bias_values_full_no_rice,  Bias_values_full_rice  , Bias_values_ax_sym_rice  , Bias_values_ax_sym_no_rice, Bias_values_full_no_rice_synth,  Bias_values_full_rice_synth  , Bias_values_ax_sym_rice_synth  ,Bias_values_ax_sym_no_rice_synth,Bias_values_full_no_rice_std_synth, Bias_values_full_rice_std_synth, Bias_values_ax_sym_no_rice_std_synth, Bias_values_ax_sym_rice_std_synth,Bias_values_full_no_rice_std,Bias_values_full_rice_std,Bias_values_ax_sym_no_rice_std,Bias_values_ax_sym_rice_std, AxTM, dummy_gm)
-% 
-% dummy_gm = 1;
-% create_figures(Bias_values_full_no_rice_gm,  Bias_values_full_rice_gm  , Bias_values_ax_sym_rice_gm  , Bias_values_ax_sym_no_rice_gm,Bias_values_full_no_rice_synth,  Bias_values_full_rice_synth  , Bias_values_ax_sym_rice_synth  ,Bias_values_ax_sym_no_rice_synth,Bias_values_full_no_rice_std_synth, Bias_values_full_rice_std_synth, Bias_values_ax_sym_no_rice_std_synth, Bias_values_ax_sym_rice_std_synth,Bias_values_full_no_rice_std_gm,Bias_values_full_rice_std_gm,Bias_values_ax_sym_no_rice_std_gm,Bias_values_ax_sym_rice_std_gm, AxTM, dummy_gm)
-% 
 
-a=1;
 end

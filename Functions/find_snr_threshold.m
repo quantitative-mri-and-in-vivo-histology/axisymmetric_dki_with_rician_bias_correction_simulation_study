@@ -1,4 +1,4 @@
-function [SNR_threshold] = find_snr_threshold(bias_average,crit_val,simulated_SNRs)
+function [SNR_threshold] = find_snr_threshold(bias_average,crit_val,simulated_SNRs,max_n)
 
  for index_alogrithm = 1:4    
     for AxTM_index = 1:5
