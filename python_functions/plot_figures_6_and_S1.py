@@ -165,15 +165,17 @@ algo_dim = 2
 script_path = os.path.dirname(os.path.realpath(__file__))
 
 p = Path(script_path)
-path = Path(p.parent,'Results_And_Figures','Figure_Data')
+path_data = Path(p.parent,'Results_And_Figures','Figure_Data')
+path_figure_results = Path(p.parent,'Results_And_Figures','Figures')
+
 
 #path = Path("..", 'Results_And_Figures','Figure_Data') #realtive path
 
-data_wm = pd.read_csv(Path(path, 'wm_table.csv')) 
-data_gm = pd.read_csv(Path(path, 'gm_table.csv')) 
-data_HA = pd.read_csv(Path(path, 'HA_table.csv')) 
-data_MA = pd.read_csv(Path(path, 'MA_table.csv')) 
-data_LA = pd.read_csv(Path(path, 'LA_table.csv')) 
+data_wm = pd.read_csv(Path(path_data, 'wm_table.csv')) 
+data_gm = pd.read_csv(Path(path_data, 'gm_table.csv')) 
+data_HA = pd.read_csv(Path(path_data, 'HA_table.csv')) 
+data_MA = pd.read_csv(Path(path_data, 'MA_table.csv')) 
+data_LA = pd.read_csv(Path(path_data, 'LA_table.csv')) 
 
 data = pd.concat([data_HA,data_MA,data_LA,data_wm,data_gm],axis=1, keys=['HA', 'MA','LA','wm','gm'])
 
@@ -281,7 +283,7 @@ fig.subplots_adjust(wspace=0.07, hspace=0.07)
 plt.show()
 
 
-fig.savefig('Figure_6.png', dpi=1200, pad_inches = 0, bbox_inches = 'tight')
+fig.savefig(Path(path_figure_results, 'Figure_6.png'), dpi=1200, pad_inches = 0, bbox_inches = 'tight')
 
 ############################################
 
@@ -377,4 +379,4 @@ fig.subplots_adjust(wspace=0.07, hspace=0.07)
 plt.show()
 
 
-fig.savefig('Figure_S1.png', dpi=1200, pad_inches = 0, bbox_inches = 'tight')
+fig.savefig(Path(path_figure_results, 'Figure_S1.png'), dpi=1200, pad_inches = 0, bbox_inches = 'tight')
