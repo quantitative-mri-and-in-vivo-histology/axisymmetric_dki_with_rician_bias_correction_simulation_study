@@ -43,20 +43,38 @@ bias_average = struct;
   bias_threshold = struct;      
   std_threshold = struct;      
                
- for inx_names = 1:numel(names)
+  
+  bias_threshold.wm = find_snr_threshold(bias_average_wm,crit_val,simulated_SNRs,max_n);
+  bias_threshold.wm(6,:) = max(bias_threshold.wm,[],1); %maximum row
+
+  bias_threshold.gm = find_snr_threshold(bias_average_gm,crit_val,simulated_SNRs,max_n);
+  bias_threshold.gm(6,:) = max(bias_threshold.gm,[],1); %maximum row
+
+  bias_threshold.HA = find_snr_threshold(bias_average_HA,crit_val,simulated_SNRs,max_n);
+  bias_threshold.HA(6,:) = max(bias_threshold.HA,[],1); %maximum row
+
+  bias_threshold.MA = find_snr_threshold(bias_average_MA,crit_val,simulated_SNRs,max_n);
+  bias_threshold.MA(6,:) = max(bias_threshold.MA,[],1); %maximum row
+
+  bias_threshold.LA = find_snr_threshold(bias_average_LA,crit_val,simulated_SNRs,max_n);
+  bias_threshold.LA(6,:) = max(bias_threshold.LA,[],1); %maximum row
 
 
-  bias_threshold.(names{inx_names}) = find_snr_threshold(bias_average.(names{inx_names}),crit_val,simulated_SNRs,max_n);
-  bias_threshold.(names{inx_names})(6,:) = max(bias_threshold.(names{inx_names}),[],1,'includenan'); %maximum row
+               
+  std_threshold.wm = find_snr_threshold(std_average_wm,crit_val,simulated_SNRs,max_n);
+  std_threshold.wm(6,:) = max(std_threshold.wm,[],1); %maximum row
 
+  std_threshold.gm = find_snr_threshold(std_average_gm,crit_val,simulated_SNRs,max_n);
+  std_threshold.gm(6,:) = max(std_threshold.gm,[],1); %maximum row
 
-  std_threshold.(names{inx_names}) = find_snr_threshold(std_average.(names{inx_names}),crit_val,simulated_SNRs,max_n);
-  std_threshold.(names{inx_names})(6,:) = max(std_threshold.(names{inx_names}),[],1,'includenan' ); %maximum row
+  std_threshold.HA = find_snr_threshold(std_average_HA,crit_val,simulated_SNRs,max_n);
+  std_threshold.HA(6,:) = max(std_threshold.HA,[],1); %maximum row
 
+  std_threshold.MA = find_snr_threshold(std_average_MA,crit_val,simulated_SNRs,max_n);
+  std_threshold.MA(6,:) = max(std_threshold.MA,[],1); %maximum row
 
-
- end
-
+  std_threshold.LA = find_snr_threshold(std_average_LA,crit_val,simulated_SNRs,max_n);
+  std_threshold.LA(6,:) = max(std_threshold.LA,[],1); %maximum row
 
 
 

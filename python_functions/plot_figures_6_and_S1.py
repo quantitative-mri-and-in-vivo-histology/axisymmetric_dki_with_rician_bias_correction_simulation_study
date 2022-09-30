@@ -1,6 +1,9 @@
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 import numpy as np
-from scipy.io import loadmat
+from pathlib import Path
+import pandas as pd
+import os
 
 from matplotlib.patches import Patch
 
@@ -81,14 +84,16 @@ def add_value_labels(ax,x,y, spacing=5):
 
         # Use Y value as label and format number with one decimal place
         label = "{:.0f}".format(y_value)
-        if  y_value == 200 :
+        
+        if y_value == 200.1:
              label = '>200'
-             
+
+
         # Create annotation
-        if y_value == 100:
+        if  y_value == 200.1:
             ax.annotate(
             label,                      # Use `label` as label
-            (x_value+0.35, y_value),         # Place label at end of the bar
+            (x_value, y_value),         # Place label at end of the bar
             xytext=(0, space),          # Vertically shift label by `space`
             textcoords="offset points", # Interpret `xytext` as offset in points
             ha='center',                # Horizontally center label
@@ -108,13 +113,18 @@ def add_value_labels(ax,x,y, spacing=5):
 
 
 
-
-
 csfont = {'fontname':'Times New Roman'}
 
-dataset_names = ["HA", "MA", "LA", "In-vivo\n white matter"]
-parameter_names = ["d_par", "d_perp", "w_par", "w_perp", "w_mean", "worst"]
+dataset_names = ["HA", "MA", "LA", "wm"]
+dataset_figure_6 = ["HA", "MA", "LA", "In-vivo\n white matter"]
+
+dataset_names_figure_s1 = ["LA", "gm"]
+dataset_names_figure_s1_plot = ["LA", "In-vivo\n gray matter"]
+
+
+parameter_names = ["AD", "RD", "AW", "RW", "MW", "Maximum"]
 algo_names = ["sdki_rbc_off", "axdki_rbc_off", "sdki_rbc_on", "axdki_rbc_on"]
+
 
 parameter_names_tex = ["$D_{\parallel}$", "$D_{\perp}$", "$W_{\parallel}$", "$W_{\perp}$", "$\overline{W}$", "Maximum"]
 algo_names_plot = ["Standard DKI", "Axisymmetric DKI", "Standard DKI, RBC ON", "Axisymmetric DKI, RBC ON"]
@@ -136,10 +146,13 @@ snr_bar_colors=[
 ]
 
     
-
+   #     (0.0, 0.6, 1.0),
+    #    (0.03, 0.9, 1.0),
+     #   (0.65, 0.1, 0.83),
+      #  (1.0, 0.0, 0.75)
     
 snr_titles = [\
-    dataset_names,
+    dataset_figure_6,
     parameter_names_tex,
     algo_names_plot
 ]
@@ -148,53 +161,21 @@ dataset_dim = 0
 parameter_dim = 1
 algo_dim = 2
 
-snr_shape = (len(dataset_names), len(parameter_names), len(algo_names))
-snrs = np.zeros(snr_shape)
-#snrs = (100 * np.random.rand(*snr_shape)).astype(np.uint8)
 
-#data = loadmat(r"C:\Users\oeschger\Documents\GitHub\Paper_Ax_Sym_RBC\Paper_1_Rician_Bias_Correction_In_AxDKI\figures\data_barplots.mat")
-data = loadmat(r"data_invivo_wm_and_synth_precision.mat")
+script_path = os.path.dirname(os.path.realpath(__file__))
 
-snrs = data["data_invivo_wm_and_synth_precision"]
+p = Path(script_path)
+path = Path(p.parent,'Results_And_Figures','Figure_Data')
 
-data_barplots = np.array(data["data_invivo_wm_and_synth_precision"])
+#path = Path("..", 'Results_And_Figures','Figure_Data') #realtive path
 
+data_wm = pd.read_csv(Path(path, 'wm_table.csv')) 
+data_gm = pd.read_csv(Path(path, 'gm_table.csv')) 
+data_HA = pd.read_csv(Path(path, 'HA_table.csv')) 
+data_MA = pd.read_csv(Path(path, 'MA_table.csv')) 
+data_LA = pd.read_csv(Path(path, 'LA_table.csv')) 
 
-
-
-
-snrs[parameter_names.index("d_par")][algo_names.index("sdki_rbc_off")] = data_barplots[0,0,:]
-snrs[parameter_names.index("d_par")][algo_names.index("axdki_rbc_off")] = data_barplots[0,1,:]
-snrs[parameter_names.index("d_par")][algo_names.index("sdki_rbc_on")] = data_barplots[0,2,:]
-snrs[parameter_names.index("d_par")][algo_names.index("axdki_rbc_on")] = data_barplots[0,3,:]
-
-snrs[parameter_names.index("d_perp")][algo_names.index("sdki_rbc_off")] = data_barplots[1,0,:]
-snrs[parameter_names.index("d_perp")][algo_names.index("axdki_rbc_off")] = data_barplots[1,1,:]
-snrs[parameter_names.index("d_perp")][algo_names.index("sdki_rbc_on")] = data_barplots[1,2,:]
-snrs[parameter_names.index("d_perp")][algo_names.index("axdki_rbc_on")] = data_barplots[1,3,:]
-
-snrs[parameter_names.index("w_par")][algo_names.index("sdki_rbc_off")] = data_barplots[2,0,:]
-snrs[parameter_names.index("w_par")][algo_names.index("axdki_rbc_off")] = data_barplots[2,1,:]
-snrs[parameter_names.index("w_par")][algo_names.index("sdki_rbc_on")] = data_barplots[2,2,:]
-snrs[parameter_names.index("w_par")][algo_names.index("axdki_rbc_on")] = data_barplots[2,3,:]
-
-snrs[parameter_names.index("w_perp")][algo_names.index("sdki_rbc_off")] = data_barplots[3,0,:]
-snrs[parameter_names.index("w_perp")][algo_names.index("axdki_rbc_off")] = data_barplots[3,1,:]
-snrs[parameter_names.index("w_perp")][algo_names.index("sdki_rbc_on")] = data_barplots[3,2,:]
-snrs[parameter_names.index("w_perp")][algo_names.index("axdki_rbc_on")] = data_barplots[3,3,:]
-
-snrs[parameter_names.index("w_mean")][algo_names.index("sdki_rbc_off")] = data_barplots[4,0,:]
-snrs[parameter_names.index("w_mean")][algo_names.index("axdki_rbc_off")] = data_barplots[4,1,:]
-snrs[parameter_names.index("w_mean")][algo_names.index("sdki_rbc_on")] = data_barplots[4,2,:]
-snrs[parameter_names.index("w_mean")][algo_names.index("axdki_rbc_on")] = data_barplots[4,3,:]
-
-snrs[parameter_names.index("worst")][algo_names.index("sdki_rbc_off")] = data_barplots[5,0,:]
-snrs[parameter_names.index("worst")][algo_names.index("axdki_rbc_off")] = data_barplots[5,1,:]
-snrs[parameter_names.index("worst")][algo_names.index("sdki_rbc_on")] = data_barplots[5,2,:]
-snrs[parameter_names.index("worst")][algo_names.index("axdki_rbc_on")] = data_barplots[5,3,:]
-
-
-print(snrs.shape)
+data = pd.concat([data_HA,data_MA,data_LA,data_wm,data_gm],axis=1, keys=['HA', 'MA','LA','wm','gm'])
 
 
 col_dim = parameter_dim
@@ -211,9 +192,8 @@ xlabel = ""
 ylabel = "SNR"
 bar_colors = snr_bar_colors[single_plot_dim]
 
-snrs = np.transpose(snrs, (row_dim, col_dim, single_plot_dim))
-nrows = snrs.shape[1]
-ncols = snrs.shape[0]
+nrows = 4
+ncols = 6
              
 
 
@@ -225,30 +205,21 @@ fig, axes = plt.subplots(nrows=nrows, ncols=ncols,
                          sharey=True, sharex=True)
 
 
-
-
-snrs[2,:,0] = 200
-snrs[2,:,1] = 200
-snrs[3,:,0] = 200
-snrs[4,2,1] = 200
-snrs[4,3,1] = 200
-
-snrs[5,:,1] = 200
-snrs[5,:,0] = 200
-
-
-print(snrs[0,:,0]) #parameter, algo, tissue
-
 bar_args = {}
 if bar_colors is not None:
     bar_args["color"] = bar_colors
     bar_args["linewidth"] = 4
 
-
+############################################
 for y in range(nrows):
     for x in range(ncols):
         ax = axes[y][x]
-        snr_values = snrs[x,:,y]
+        
+        indexer_1 = dataset_names[y]
+        indexer_2 = parameter_names[x] 
+        
+        snr_values = data[indexer_1][indexer_2]
+
 
              
         bars = ax.bar(xticklabels, snr_values.tolist(), **bar_args)
@@ -256,10 +227,9 @@ for y in range(nrows):
 
         bars[2].set(hatch="///")
         bars[3].set(hatch="///")
-        
-      #  if x == 2 and y == 1:
-      #      snrs[2,1,1] = None 
         add_value_labels(ax,x,y)
+
+        
         
         ax.set_xticks([])
         ax.set_xticklabels([])
@@ -273,7 +243,7 @@ for y in range(nrows):
             ax.set_xlabel("")
             
             
-
+mpl.rcParams['hatch.linewidth'] = 1.0
 
 
 
@@ -305,12 +275,106 @@ legend_elements_alt = [
 
 legend = fig.legend(handles=legend_elements_alt, fontsize=10, ncol=2, loc='upper center', bbox_to_anchor=(0.51, 1.05), fancybox=True, bbox_transform=fig.transFigure)
 
-#fig.legend(handles=legend_elements, bbox_to_anchor=(0.8, 1.02), ncol=len(bar_colors), fontsize=9)
 
 fig.subplots_adjust(wspace=0.07, hspace=0.07)
 #plt.tight_layout()
 plt.show()
 
 
-fig.savefig('invivo_wm_and_synth_precision.png', dpi=1200, pad_inches = 0, bbox_inches = 'tight')
-fig.savefig('invivo_wm_and_synth_precision.svg', dpi=1200, bbox_inches = 'tight', pad_inches = 0)
+fig.savefig('Figure_6.png', dpi=1200, pad_inches = 0, bbox_inches = 'tight')
+
+############################################
+
+
+snr_titles = [\
+    dataset_names_figure_s1_plot,
+    parameter_names_tex,
+    algo_names_plot
+]
+
+row_titles = snr_titles[row_dim]
+
+fig, axes = plt.subplots(nrows=2, ncols=ncols,
+                         figsize=set_size(width, fraction=1.5, fig_height_pt=height*1.3),
+                         sharey=True, sharex=True)
+
+for y in range(2):
+    for x in range(ncols):
+        ax = axes[y][x]
+        
+        indexer_1 = dataset_names_figure_s1[y]
+        indexer_2 = parameter_names[x] 
+        
+        snr_values = data[indexer_1][indexer_2]
+        
+        
+        if np.any(np.isnan(snr_values)):
+            snr_values_new = []
+            for x in snr_values:
+                if not np.isnan(x):
+                    snr_values_new.append(x)
+                elif np.isnan(x):
+                    snr_values_new.append(200.1)         
+            snr_values = pd.Series(data=snr_values_new)
+              
+            
+        bars = ax.bar(xticklabels, snr_values.tolist(), **bar_args)
+        
+
+        bars[2].set(hatch="///")
+        bars[3].set(hatch="///")
+        add_value_labels(ax,x,y)
+
+        
+        
+        ax.set_xticks([])
+        ax.set_xticklabels([])
+        ax.set_ylim([0, 260])
+        
+        if x == 0:
+            ax.set_ylabel("SNR")
+        if y == 0:
+            ax.set_title(col_titles[x], fontsize=16)
+        if y == 1:
+            ax.set_xlabel("")
+            
+            
+mpl.rcParams['hatch.linewidth'] = 1.0
+
+
+
+pad = 0
+for ax, row in zip(axes[:,0], row_titles):
+    ax.annotate(row, xy=(-0.05, 0.5), xytext=(-ax.yaxis.labelpad - pad -10, 0),
+                xycoords=ax.yaxis.label, textcoords='offset points',
+                size=16, ha='right', va='center', rotation=0)
+
+
+if bar_colors is not None:
+    legend_elements = []
+    for bar_name, bar_color in zip(xticklabels, bar_colors):
+        if bar_name == algo_names_plot[2]:
+            legend_elements.append(Patch(facecolor=bar_color, edgecolor='black',
+                         label=bar_name, hatch ="///"))
+        elif bar_name == algo_names_plot[3]:
+            legend_elements.append(Patch(facecolor=bar_color, edgecolor='black',
+                         label=bar_name, hatch ="///"))
+        else:
+                legend_elements.append(Patch(facecolor=bar_color, edgecolor='black',
+                         label=bar_name))
+
+
+legend_elements_alt = [
+    legend_elements[0], legend_elements[2], legend_elements[1], legend_elements[3]
+    ]
+
+
+legend = fig.legend(handles=legend_elements_alt, fontsize=10, ncol=2, loc='upper center', bbox_to_anchor=(0.51, 1.05), fancybox=True, bbox_transform=fig.transFigure)
+
+
+fig.subplots_adjust(wspace=0.07, hspace=0.07)
+#plt.tight_layout()
+plt.show()
+
+
+fig.savefig('Figure_S1.png', dpi=1200, pad_inches = 0, bbox_inches = 'tight')

@@ -1,9 +1,8 @@
-function  [results] = read_fit_results_and_compute_a_mpe_and_a_std(path_of_script,voxel_folder,simulated_SNRs,number_of_noise_realizations,slice,results)
+function  [results] = read_fit_results_and_compute_a_mpe_and_a_std(path_of_script,voxel_folder,simulated_SNRs,number_of_noise_realizations,slice,results,AxTM)
 
 
 
 
-  AxTM = {'RW','AW', 'MW','RD','AD'};
 
 
  perc = 5; %
@@ -113,8 +112,8 @@ end
     
     
 
-AxTM = {'$W_{\perp}$','$W_{\parallel}$','$\overline{W}$','$D_{\perp}$','$D_{\parallel}$'};
-SNR = simulated_SNRs * sqrt(2);
+% AxTM = {'$W_{\perp}$','$W_{\parallel}$','$\overline{W}$','$D_{\perp}$','$D_{\parallel}$'};
+% SNR = simulated_SNRs * sqrt(2);
     
 
     for inx = 1:numel(AxTM)

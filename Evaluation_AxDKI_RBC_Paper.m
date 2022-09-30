@@ -8,6 +8,8 @@ L = 2; %number of coils
 % simulated_SNRs = [1/sqrt(2):(1/sqrt(2)):200/sqrt(2)]; %SNR divided by sqrt(2), L=number of coils = 2
 simulated_SNRs = [1:1:200];
 
+AxTM = {'RW','AW', 'MW','RD','AD'};
+
 simulate_data(path_of_script,number_of_noise_realizations,simulated_SNRs,L);
 
 results = struct;
@@ -32,10 +34,11 @@ create_directories_results(path_of_script, voxel_folder, simulated_SNRs)
 
 fit_voxels(path_of_script,simulated_SNRs,voxel_folder,L)
 
-results = read_fit_results_and_compute_a_mpe_and_a_std(path_of_script,voxel_folder,simulated_SNRs,number_of_noise_realizations,slice,results);
+results = read_fit_results_and_compute_a_mpe_and_a_std(path_of_script,voxel_folder,simulated_SNRs,number_of_noise_realizations,slice,results,AxTM);
 
-[bias_threshold, std_threshold] = create_plot_data(results,simulated_SNRs);
+[bias_threshold, std_threshold,names] = create_plot_data(results,simulated_SNRs);
 
+create_csv_files(bias_threshold, std_threshold,AxTM,path_of_script,names)
 
 
 
