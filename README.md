@@ -1,6 +1,6 @@
 <div align="center">
 
-# Recreate paper figures
+# Axisymmetric diffusion kurtosis imaging with Rician bias correction: A simulation study
 
 </div>
 
