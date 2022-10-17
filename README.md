@@ -18,8 +18,7 @@ conda install pip
 pip install -r requirements.txt
 ```
 ## Setup Matlab toolboxes
-Install spm12 (https://www.fil.ion.ucl.ac.uk/spm/software/spm12/) and ACID toolbox (https://bitbucket.org/siawoosh/acid-artefact-correction-in-diffusion-mri/src/master/) for Matlab. Reset ACID toolbox to Commit 0bbbbe1 (date: 2022-08-31	
-).
+Install spm12 (https://www.fil.ion.ucl.ac.uk/spm/software/spm12/) and ACID toolbox (https://bitbucket.org/siawoosh/acid-artefact-correction-in-diffusion-mri/src/master/) for Matlab. Reset ACID toolbox to Commit 0bbbbe1 (date: 2022-08-31).
 
 # How to run
 - Open Matlab and spm12, add spm12 folder to Matlab path. 
