@@ -222,7 +222,6 @@ for y in range(nrows):
         
         snr_values = data[indexer_1][indexer_2]
 
-
              
         bars = ax.bar(xticklabels, snr_values.tolist(), **bar_args)
         
