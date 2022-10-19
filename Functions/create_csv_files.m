@@ -1,6 +1,6 @@
 function  create_csv_files(bias_threshold, std_threshold,AxTM,path_of_script,names)
 
-    algo_names = {'standard DKI', 'standard DKI RBC', 'AxDKI', 'AxDKI RBC'};
+    algo_names = {'standard DKI', 'AxDKI' , 'standard DKI RBC', 'AxDKI RBC'};
     
     for i = 1:5
      
