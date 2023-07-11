@@ -3,16 +3,16 @@ function simulation_simulate_signals_based_on_axDKI(path_of_script, simulation_v
  
     
         
-        contaminate_signal = 1;
+        contaminate_signal = simulation_parameters.contaminate_signal;
         
         
         bvalues = simulation_parameters.simulation_bvals/1000;
         diffusion_gradients = simulation_parameters.simulation_bvecs;
 
         
-        u(1) = 1; % the u1,u2 and u3 here are the components of the axis of symmetry
-        u(2) = 0;
-        u(3) = 0;        
+        u(1) = simulation_parameters.axis_of_symmetry(1); % the u1,u2 and u3 here are the components of the axis of symmetry
+        u(2) = simulation_parameters.axis_of_symmetry(2);
+        u(3) = simulation_parameters.axis_of_symmetry(3);        
          
         
         

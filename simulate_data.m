@@ -13,11 +13,12 @@ function  simulate_data(path_of_script,number_of_noise_realizations,simulated_SN
     simulation_parameters.simulation_bvals = bval_simulation;
     simulation_parameters.simulation_bvecs = bvec_simulation;
     
-    simulation_parameters.simulation_name = 'simulation_of_paper_data';
-    simulation_parameters.n_noise_samples = number_of_noise_realizations;
-    simulation_parameters.simulation_snrs = simulated_SNRs;
-    simulation_parameters.L               = L;
-
+    simulation_parameters.simulation_name    = 'simulation_of_paper_data';
+    simulation_parameters.n_noise_samples    = number_of_noise_realizations;
+    simulation_parameters.simulation_snrs    = simulated_SNRs;
+    simulation_parameters.L                  = L;
+    simulation_parameters.contaminate_signal = 1;
+    simulation_parameters.axis_of_symmetry   = [1,0,0];
     
     
     for inx = 1: size(dataset_names,2)

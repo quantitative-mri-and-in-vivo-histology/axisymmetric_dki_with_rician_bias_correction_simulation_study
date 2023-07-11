@@ -3,7 +3,7 @@ function simulation_simulate_signals_based_on_standardDKI(path_of_script, simula
  
     
         
-        contaminate_signal = 1;
+        contaminate_signal = simulation_parameters.contaminate_signal;
         
         
         bvalues = simulation_parameters.simulation_bvals/1000;
