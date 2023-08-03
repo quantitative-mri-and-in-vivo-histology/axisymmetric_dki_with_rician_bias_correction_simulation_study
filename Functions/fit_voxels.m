@@ -1,4 +1,4 @@
-function  fit_voxels(path_of_script,simulated_SNRs,voxel_folder,L)
+function  fit_voxels(path_of_script,simulated_SNRs,voxel_folder)
 
 
 
@@ -72,7 +72,7 @@ for inx_voxel = 1:size(voxel_folder,2)
         inputs{2, 1} = bvalues*1000; % Fit Diffusion Tensor: Diffusion directions (bvec) - cfg_entry
         inputs{3, 1} = diffusion_gradients; % Fit Diffusion Tensor: b-values (bval) - cfg_entry
         if fit_methods == 3 || fit_methods == 4
-         inputs{4, 1} = (1000/index_snr)*sqrt(L);% here I have to put in the standard deviation which sigma = sqrt(2) * S0/SNR, for L=2 % Fit Diffusion Tensor: Standard deviation for Rician bias correction - cfg_entry
+         inputs{4, 1} = (1000/index_snr)*sqrt(2);% here I have to put in the standard deviation which sigma = sqrt(2) * S0/SNR % Fit Diffusion Tensor: Standard deviation for Rician bias correction - cfg_entry
         end
     spm('defaults', 'FMRI');
     spm_jobman('run', jobs, inputs{:});

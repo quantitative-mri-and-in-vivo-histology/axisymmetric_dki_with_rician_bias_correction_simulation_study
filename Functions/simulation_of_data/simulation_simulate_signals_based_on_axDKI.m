@@ -99,7 +99,7 @@ function simulation_simulate_signals_based_on_axDKI(path_of_script, simulation_v
                         
                                          for i = 1: size(signal,1)
                         
-                                          sigma = ( (1/(inx_snr)) * sqrt(simulation_parameters.L) ) ;     %SNR = sqrt(L) * S0/sigma            
+                                          sigma = ( (1/(inx_snr)) * sqrt(2) ) ;     %SNR = sqrt(2) * S0/sigma            
                                           real =  random ( 'Normal', 0 , sigma );  
                                           imaginary =  random ( 'Normal', 0 , sigma );
                                           contaminated_signal = abs( ( signal(i) ) + complex ( real , imaginary ) ) ;

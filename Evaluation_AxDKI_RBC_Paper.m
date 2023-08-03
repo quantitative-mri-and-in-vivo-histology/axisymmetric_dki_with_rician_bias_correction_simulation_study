@@ -4,13 +4,12 @@ path_of_script = fileparts(mfilename('fullpath'));
 addpath(genpath([path_of_script filesep 'Functions']));
 
 number_of_noise_realizations = 2500;
-L = 2; %number of coils
 % simulated_SNRs = [1/sqrt(2):(1/sqrt(2)):200/sqrt(2)]; %SNR divided by sqrt(2), L=number of coils = 2
 simulated_SNRs = [1:1:200];
 
 AxTM = {'RW','AW', 'MW','RD','AD'};
 
-simulate_data(path_of_script,number_of_noise_realizations,simulated_SNRs,L);
+simulate_data(path_of_script,number_of_noise_realizations,simulated_SNRs);
 
 results = struct;
 
@@ -32,7 +31,7 @@ slice = 2;
 
 create_directories_results(path_of_script, voxel_folder, simulated_SNRs)
 
-fit_voxels(path_of_script,simulated_SNRs,voxel_folder,L)
+fit_voxels(path_of_script,simulated_SNRs,voxel_folder)
 
 results = read_fit_results_and_compute_a_mpe_and_a_std(path_of_script,voxel_folder,simulated_SNRs,number_of_noise_realizations,slice,results,AxTM);
 
